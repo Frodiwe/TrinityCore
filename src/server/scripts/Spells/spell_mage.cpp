@@ -28,6 +28,7 @@
 #include "SpellAuraEffects.h"
 #include "Pet.h"
 #include "GridNotifiers.h"
+#include <iostream>
 
 enum MageSpells
 {
@@ -1138,6 +1139,32 @@ class spell_mage_water_elemental_freeze : public SpellScriptLoader
        }
 };
 
+class spell_mage_blizzard : public SpellScriptLoader
+{
+public:
+	spell_mage_blizzard() : SpellScriptLoader("spell_mage_blizzard") { }
+
+	class spell_mage_blizzard_SpellScript : public SpellScript
+	{
+		PrepareSpellScript(spell_mage_blizzard_SpellScript);
+
+		void HandleBlizzard()
+		{
+			std::cout << "TESTTESTTEST";
+		}
+
+		void Register()
+		{
+			OnCast += SpellCastFn(spell_mage_blizzard_SpellScript::HandleBlizzard);
+		}
+	};
+
+	SpellScript* GetSpellScript() const override
+	{
+		return new spell_mage_blizzard_SpellScript{};
+	}
+};
+
 void AddSC_mage_spell_scripts()
 {
     new spell_mage_arcane_potency();
@@ -1163,4 +1190,5 @@ void AddSC_mage_spell_scripts()
     new spell_mage_time_warp();
     new spell_mage_trigger_chilled();
     new spell_mage_water_elemental_freeze();
+	new spell_mage_blizzard {};
 }
