@@ -1150,7 +1150,7 @@ public:
 
 		void HandleBlizzard()
 		{
-			std::cout << "TESTTESTTEST";
+			return;
 		}
 
 		void Register()
